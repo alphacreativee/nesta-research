@@ -10,8 +10,29 @@ gsap.ticker.add((time) => {
 
 gsap.ticker.lagSmoothing(0);
 
+function sectionSolutions() {
+  if ($(".section-solutions").length < 1) return;
+
+  const itemCards = $(".section-solutions .solutions-list .item");
+  const itemBg = $(".section-solutions .solutions-bg .bg-item");
+  itemCards.on("mouseenter", function () {
+    let thisCardIndex = $(this).data("tab");
+
+    itemCards.removeClass("active");
+    $(
+      `.section-solutions .solutions-list .item[data-tab='${thisCardIndex}']`
+    ).addClass("active");
+
+    itemBg.removeClass("active");
+    $(
+      `.section-solutions .solutions-bg .bg-item[data-tab='${thisCardIndex}']`
+    ).addClass("active");
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
+  sectionSolutions();
 };
 preloadImages("img").then(() => {
   init();
